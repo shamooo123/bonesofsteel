@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+</head>
+<body>
+
+    <nav>
+        <div>BONES OF STEEL | <span style="font-size:0.8rem; color:#ccc;" id="user-name">Loading...</span></div>
+        <div>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </nav>
+
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('community')">COMMUNITY</div>
+            <div class="tab" onclick="openTab('classroom')">CLASSROOM</div>
+            <div class="tab" onclick="openTab('calendar')">CALENDAR</div>
+            <div class="tab" onclick="openTab('leaderboard')">LEADERBOARD</div>
+        </div>
+
+        <div id="community" class="tab-content active">
+            <iframe src="https://htmlhost-1n21.onrender.com/community-chat.html" 
+                    style="width:100%; height:80vh; border:1px solid #ddd; border-radius:8px;"></iframe>
+        </div>
+
+        <div id="classroom" class="tab-content">
+            <h2>Training Modules</h2>
+            
+            <div class="module">
+                <div class="module-header" onclick="toggleAccordion(this)">
+                    <span>🥊 Module 1: Introduction</span> <span>▼</span>
+                </div>
+                <div class="module-body">
+                    <div class="video-item" onclick="playVideo('VIDEO_ID_HERE')">▶️ Welcome to the Academy</div>
+                    <div class="video-item" onclick="playVideo('VIDEO_ID_HERE')">▶️ Mindset of a Champion</div>
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header" onclick="toggleAccordion(this)">
+                    <span>👣 Module 2: Footwork</span> <span>▼</span>
+                </div>
+                <div class="module-body">
+                    <div class="video-item">▶️ The Stance</div>
+                    <div class="video-item">▶️ Moving Forward</div>
+                </div>
+            </div>
+
+            <div id="video-player" style="margin-top:20px; display:none;">
+                <iframe width="100%" height="500" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div id="calendar" class="tab-content">
+            <h3>Live Session Schedule</h3>
+            <p>Embed your Google Calendar here later.</p>
+        </div>
+
+        <div id="leaderboard" class="tab-content">
+            <h3>Top Fighters</h3>
+            <ul>
+                <li>1. Black Beard - Level 5</li>
+                <li>2. Iron Fist - Level 3</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Simple Tab Logic
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        // Accordion Logic
+        function toggleAccordion(element) {
+            const body = element.nextElementSibling;
+            body.style.display = body.style.display === 'block' ? 'none' : 'block';
+        }
+        // Video Logic
+        function playVideo(videoId) {
+            const player = document.getElementById('video-player');
+            player.style.display = 'block';
+            player.querySelector('iframe').src = "https://www.youtube.com/embed/" + videoId;
+        }
+    </script>
+</body>
+</html>
