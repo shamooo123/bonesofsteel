@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bones of Steel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+</head>
+<body>
+
+    <nav>
+        <div style="font-size:1.5rem; font-weight:bold;">BONES OF STEEL</div>
+        <a href="index.html">Back to Home</a>
+    </nav>
+
+    <div class="auth-container">
+        <h2 id="form-title">Member Login</h2>
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="password" id="password" placeholder="Password">
+        <button id="login-btn">Log In</button>
+        <p style="margin-top:15px; font-size:0.9rem;">
+            New here? <a href="#" id="toggle-auth">Create an Account</a>
+        </p>
+        <p id="error-msg" style="color:red; display:none;"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
