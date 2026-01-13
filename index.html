@@ -3,34 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bones of Steel | Boxing Academy</title>
+    <title>Bones of Steel | The Ultimate Boxing Academy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <div style="font-size:1.5rem; font-weight:bold;">BONES OF STEEL</div>
-        <div>
+        <div class="logo">BONES OF STEEL</div>
+        <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="login.html">Login</a>
-            <a href="login.html" class="btn">Join Now</a>
+            <a href="#">Course</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="login.html" class="btn-login">Login</a>
         </div>
-    </nav>
+        </nav>
 
-    <div class="hero">
-        <h1>Unleash Your Inner Fighter</h1>
-        <p>Join the ultimate boxing academy. Train like a pro, from anywhere.</p>
-        <a href="login.html" class="cta-button">Start Your Journey</a>
-    </div>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>BONES OF STEEL</h1>
+            <p class="subtitle">The Ultimate Boxing Academy</p>
+            <a href="#pricing" class="cta-button">Learn More</a>
+        </div>
+    </header>
 
-    <section style="padding: 50px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
-        <h2>Membership Includes</h2>
-        <div style="display: flex; justify-content: space-around; margin-top: 30px; flex-wrap: wrap;">
-            <div><h3>50+ Hours</h3><p>Video Tutorials</p></div>
-            <div><h3>Live Sessions</h3><p>Weekly Coaching</p></div>
-            <div><h3>Community</h3><p>Private Chat Access</p></div>
+    <section id="pricing" class="section-light">
+        <div class="container">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h2>Unleash Your Inner Fighter</h2>
+                    <div class="price">£99.00 <span class="period">/ Every month</span></div>
+                </div>
+                <div class="pricing-body">
+                    <h3>Bones Of Steel Academy</h3>
+                    <p>For just £99 a month, join a premium boxing community designed to elevate your skills and passion for the sport. Whether you're a beginner or a seasoned boxer, Bones of Steel Academy has everything you need to improve and stay motivated.</p>
+                    
+                    <ul class="features-list">
+                        <li>✓ All-Access Pass</li>
+                        <li>✓ View anytime, anywhere</li>
+                        <li>✓ Video Tutorials: On-demand lessons to master techniques</li>
+                        <li>✓ Live Sessions: Interactive training with expert coaches</li>
+                        <li>✓ Community Access: Connect with fellow boxing enthusiasts</li>
+                    </ul>
+
+                    <a href="login.html" class="cta-button full-width">Start your journey</a>
+                    <p class="small-text">Join hundreds of fighters already training with us — your journey to strength, speed, and mindset starts today.</p>
+                </div>
+            </div>
         </div>
     </section>
+
+    <section class="section-dark about-section">
+        <div class="container flex-row">
+            <div class="about-image">
+                <img src="images/indeximage2.jpg" alt="Bones of Steel Fighter">
+            </div>
+            <div class="about-text">
+                <h2>Building Champions From The Ground Up</h2>
+                <p>At Bones of Steel, we don't just teach boxing — we build champions. Whether you're a complete beginner or a seasoned fighter, our structured training path is designed to push you to your personal best.</p>
+                <p>Get instant access to 50+ hours of on-demand coaching and weekly live sessions with our pro boxer. Every jab, cross, and combination is broken down so you learn fast — and fight smart.</p>
+                <p>But Bones of Steel is more than just training. It's a community. Get real-time progress tracking, daily challenges, and connect with a tribe of motivated boxers who won't let you quit.</p>
+                <p><strong>You bring the fight. We'll bring the fire.</strong></p>
+                <br>
+                <a href="#" class="cta-button-outline">MORE ABOUT OUR BRAND</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light socials-section">
+        <div class="container">
+            <h2>FOLLOW US ON SOCIALS</h2>
+            <p class="social-handle">Instagram: @Bonesofsteell</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="images/indeximage3.jpg" alt="Social 1"></div>
+                <div class="gallery-item"><img src="images/indeximage4.jpg" alt="Social 2"></div>
+                <div class="gallery-item"><img src="images/indeximage5.jpg" alt="Social 3"></div>
+                <div class="gallery-item"><img src="images/indeximage6.jpg" alt="Social 4"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Bones of Steel. All Rights Reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
