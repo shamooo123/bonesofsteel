@@ -1,30 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Bones of Steel</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Bones of Steel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-page { background: #f1f1f1; }
+    .auth-tabs {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid var(--gray-200);
+      margin-bottom: 28px;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 11px;
+      font-family: var(--font-head);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--white);
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      color: #888;
+    }
+    .auth-tab-btn.active {
+      background: var(--green);
+      color: var(--white);
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--gray-200); }
+    .auth-divider span { font-size: 0.78rem; color: #bbb; }
+    .loading-spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
 </head>
 <body>
 
-    <nav>
-        <div style="font-size:1.5rem; font-weight:bold;">BONES OF STEEL</div>
-        <a href="index.html">Back to Home</a>
-    </nav>
+  <!-- ░░ NAV ░░ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span>BONES OF</span>
+      <span>STEEL</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">← Back to Home</a></li>
+    </ul>
+  </nav>
 
-    <div class="auth-container">
-        <h2 id="form-title">Member Login</h2>
-        <input type="email" id="email" placeholder="Email Address">
-        <input type="password" id="password" placeholder="Password">
-        <button id="login-btn">Log In</button>
-        <p style="margin-top:15px; font-size:0.9rem;">
-            New here? <a href="#" id="toggle-auth">Create an Account</a>
-        </p>
-        <p id="error-msg" style="color:red; display:none;"></p>
+  <!-- ░░ AUTH CARD ░░ -->
+  <div class="auth-page">
+    <div class="auth-card">
+
+      <!-- Logo -->
+      <div style="text-align:center; margin-bottom:24px;">
+        <div style="font-family:'Oswald',sans-serif; font-size:1.6rem; font-weight:700; text-transform:uppercase; line-height:1.1; letter-spacing:2px;">
+          BONES OF STEEL
+        </div>
+        <div style="font-size:0.75rem; color:#888; margin-top:4px; letter-spacing:1px;">
+          BOXING ACADEMY
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login" onclick="showLogin()">Log In</button>
+        <button class="auth-tab-btn" id="tab-signup" onclick="showSignup()">Sign Up</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="login-form">
+        <h2>Welcome Back</h2>
+        <input type="email" id="login-email" placeholder="Email address" autocomplete="email">
+        <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+        <button class="btn btn-green" id="login-btn" onclick="doLogin()">Log In</button>
+        <div class="auth-error" id="login-error"></div>
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div id="signup-form" style="display:none;">
+        <h2>Join the Academy</h2>
+        <input type="text" id="signup-name" placeholder="Full name" autocomplete="name">
+        <input type="text" id="signup-display" placeholder="Display name (shown in chat)">
+        <input type="email" id="signup-email" placeholder="Email address" autocomplete="email">
+        <input type="password" id="signup-password" placeholder="Password (min 8 characters)" autocomplete="new-password">
+        <button class="btn btn-green" id="signup-btn" onclick="doSignup()">Create Account</button>
+        <div class="auth-error" id="signup-error"></div>
+      </div>
+
+      <div class="auth-divider">
+        <hr><span>Member Benefits</span><hr>
+      </div>
+      <div style="font-size:0.78rem; color:#666; line-height:1.8;">
+        ✓ 50+ hours of boxing tutorials<br>
+        ✓ Weekly live coaching sessions<br>
+        ✓ Community chat & leaderboard<br>
+        ✓ Progress tracking & challenges
+      </div>
+
     </div>
+  </div>
 
-    <script src="app.js"></script>
+  <!-- ░░ FOOTER ░░ -->
+  <footer>
+    <p>&copy; 2025 Bones of Steel. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const pb = new PocketBase('https://pocketbase-yxsc.onrender.com');
+
+    /* ── Redirect if already logged in ── */
+    if (pb.authStore.isValid) {
+      window.location.href = 'dashboard.html';
+    }
+
+    function showLogin() {
+      document.getElementById('login-form').style.display  = '';
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('tab-login').classList.add('active');
+      document.getElementById('tab-signup').classList.remove('active');
+    }
+
+    function showSignup() {
+      document.getElementById('signup-form').style.display = '';
+      document.getElementById('login-form').style.display  = 'none';
+      document.getElementById('tab-signup').classList.add('active');
+      document.getElementById('tab-login').classList.remove('active');
+    }
+
+    function setLoading(btnId, loading) {
+      const btn = document.getElementById(btnId);
+      if (loading) {
+        btn.innerHTML = '<span class="loading-spinner"></span>Please wait…';
+        btn.disabled = true;
+      } else {
+        btn.innerHTML = btnId === 'login-btn' ? 'Log In' : 'Create Account';
+        btn.disabled = false;
+      }
+    }
+
+    async function doLogin() {
+      const email    = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errEl    = document.getElementById('login-error');
+      errEl.textContent = '';
+
+      if (!email || !password) {
+        errEl.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      setLoading('login-btn', true);
+      try {
+        await pb.collection('users').authWithPassword(email, password);
+        localStorage.setItem('bones_user_id', pb.authStore.model.id);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        errEl.textContent = 'Wrong email or password. Please try again.';
+        setLoading('login-btn', false);
+      }
+    }
+
+    async function doSignup() {
+      const name     = document.getElementById('signup-name').value.trim();
+      const display  = document.getElementById('signup-display').value.trim();
+      const email    = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const errEl    = document.getElementById('signup-error');
+      errEl.textContent = '';
+
+      if (!name || !display || !email || !password) {
+        errEl.textContent = 'Please fill in all fields.';
+        return;
+      }
+      if (password.length < 8) {
+        errEl.textContent = 'Password must be at least 8 characters.';
+        return;
+      }
+
+      setLoading('signup-btn', true);
+      try {
+        await pb.collection('users').create({
+          email,
+          password,
+          passwordConfirm: password,
+          name,
+          displayName: display,
+          role: 'member'
+        });
+        await pb.collection('users').authWithPassword(email, password);
+        localStorage.setItem('bones_user_id', pb.authStore.model.id);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        const msg = err?.response?.data?.email?.message
+          || err?.response?.data?.password?.message
+          || err?.message
+          || 'Registration failed. Please try again.';
+        errEl.textContent = msg;
+        setLoading('signup-btn', false);
+      }
+    }
+
+    /* Allow Enter key to submit */
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('signup-form').style.display !== 'none') {
+        doSignup();
+      } else {
+        doLogin();
+      }
+    });
+  </script>
+
 </body>
 </html>
