@@ -1,95 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Bones of Steel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+  <style>
+    body { background: #f5f5f5; }
+    .dash-body {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 24px 60px;
+    }
+    /* Community iframe */
+    .chat-frame {
+      width: 100%;
+      height: 78vh;
+      min-height: 480px;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      background: var(--white);
+    }
+    /* Classroom */
+    .classroom-header {
+      margin-bottom: 28px;
+    }
+    .classroom-header h2 { font-size: 1.6rem; margin-bottom: 6px; }
+    .classroom-header p  { color: var(--gray-500); font-size: 0.88rem; margin: 0; }
+
+    /* Calendar */
+    .cal-frame-wrap {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .cal-frame-wrap iframe {
+      width: 100%;
+      height: 620px;
+      border: none;
+    }
+    .cal-placeholder {
+      padding: 60px 40px;
+      text-align: center;
+      background: var(--white);
+      border-radius: 12px;
+      border: 2px dashed var(--gray-200);
+    }
+    .cal-placeholder h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .cal-placeholder p  { color: var(--gray-500); margin: 0 0 20px; font-size: 0.88rem; }
+
+    /* Leaderboard table */
+    .leaderboard-wrap {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .lb-loading { padding: 40px; text-align: center; color: var(--gray-500); font-size: 0.88rem; }
+
+    @media (max-width: 600px) {
+      .dash-body { padding: 0 12px 40px; }
+      .tabs-nav li { font-size: 0.65rem; padding: 10px 6px; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <div>BONES OF STEEL | <span style="font-size:0.8rem; color:#ccc;" id="user-name">Loading...</span></div>
-        <div>
-            <a href="#" onclick="logout()">Logout</a>
-        </div>
-    </nav>
+  <!-- ░░ DASHBOARD NAV ░░ -->
+  <div class="dash-nav">
+    <div class="dash-nav-left">BONES OF STEEL</div>
+    <div class="dash-nav-right">
+      <span id="welcome-msg">Loading…</span>
+      <a href="index.html">← Home</a>
+      <button class="dash-logout" onclick="logout()">Log out</button>
+    </div>
+  </div>
 
-    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
-        <div class="tabs">
-            <div class="tab active" onclick="openTab('community')">COMMUNITY</div>
-            <div class="tab" onclick="openTab('classroom')">CLASSROOM</div>
-            <div class="tab" onclick="openTab('calendar')">CALENDAR</div>
-            <div class="tab" onclick="openTab('leaderboard')">LEADERBOARD</div>
-        </div>
+  <!-- ░░ TABS ░░ -->
+  <div class="dash-body">
+    <ul class="tabs-nav">
+      <li class="active" onclick="switchTab('community', this)">🗣 Community</li>
+      <li onclick="switchTab('classroom', this)">📚 Classroom</li>
+      <li onclick="switchTab('calendar', this)">📅 Calendar</li>
+      <li onclick="switchTab('leaderboard', this)">🏆 Leaderboard</li>
+    </ul>
 
-        <div id="community" class="tab-content active">
-            <iframe src="https://htmlhost-1n21.onrender.com/community-chat.html" 
-                    style="width:100%; height:80vh; border:1px solid #ddd; border-radius:8px;"></iframe>
-        </div>
-
-        <div id="classroom" class="tab-content">
-            <h2>Training Modules</h2>
-            
-            <div class="module">
-                <div class="module-header" onclick="toggleAccordion(this)">
-                    <span>🥊 Module 1: Introduction</span> <span>▼</span>
-                </div>
-                <div class="module-body">
-                    <div class="video-item" onclick="playVideo('VIDEO_ID_HERE')">▶️ Welcome to the Academy</div>
-                    <div class="video-item" onclick="playVideo('VIDEO_ID_HERE')">▶️ Mindset of a Champion</div>
-                </div>
-            </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleAccordion(this)">
-                    <span>👣 Module 2: Footwork</span> <span>▼</span>
-                </div>
-                <div class="module-body">
-                    <div class="video-item">▶️ The Stance</div>
-                    <div class="video-item">▶️ Moving Forward</div>
-                </div>
-            </div>
-
-            <div id="video-player" style="margin-top:20px; display:none;">
-                <iframe width="100%" height="500" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div id="calendar" class="tab-content">
-            <h3>Live Session Schedule</h3>
-            <p>Embed your Google Calendar here later.</p>
-        </div>
-
-        <div id="leaderboard" class="tab-content">
-            <h3>Top Fighters</h3>
-            <ul>
-                <li>1. Black Beard - Level 5</li>
-                <li>2. Iron Fist - Level 3</li>
-            </ul>
-        </div>
+    <!-- ── COMMUNITY TAB ── -->
+    <div id="tab-community" class="tab-pane active">
+      <iframe class="chat-frame"
+              src="https://htmlhost-1n21.onrender.com/community-chat.html"
+              allow="fullscreen"
+              loading="lazy">
+      </iframe>
     </div>
 
-    <script src="app.js"></script>
-    <script>
-        // Simple Tab Logic
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+    <!-- ── CLASSROOM TAB ── -->
+    <div id="tab-classroom" class="tab-pane">
+      <div class="classroom-header">
+        <h2>Training Modules</h2>
+        <p>Work through each module at your own pace. Click a lesson to watch.</p>
+      </div>
+
+      <!-- Module 1 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span>🥊 Module 1: Introduction to Boxing</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="module-body">
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Welcome to the Academy')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Welcome to the Academy
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Mindset of a Champion')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Mindset of a Champion
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Equipment Guide')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Equipment Guide
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span>👣 Module 2: Stance & Footwork</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="module-body">
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'The Orthodox Stance')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            The Orthodox Stance
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Forward & Backward Movement')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Forward & Backward Movement
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Lateral Footwork Drills')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Lateral Footwork Drills
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span>🤜 Module 3: Basic Punches</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="module-body">
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'The Jab')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            The Jab
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'The Cross')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            The Cross
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Hook & Uppercut')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Hook & Uppercut
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', '1-2 Combination')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            1-2 Combination
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="module">
+        <div class="module-header" onclick="toggleModule(this)">
+          <span>🛡 Module 4: Defence</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="module-body">
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Slipping Punches')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Slipping Punches
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Parrying & Blocking')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Parrying & Blocking
+          </div>
+          <div class="video-item" onclick="playVideo('dQw4w9WgXcQ', 'Rolling Under Hooks')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Rolling Under Hooks
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Player -->
+      <div class="video-player-wrap" id="video-player">
+        <div style="padding:12px 16px; background:#111; display:flex; align-items:center; justify-content:space-between;">
+          <span id="video-title" style="color:#fff; font-size:0.85rem; font-weight:600;"></span>
+          <button onclick="closePlayer()" style="background:none; border:none; color:#aaa; cursor:pointer; font-size:1.1rem;">✕</button>
+        </div>
+        <iframe id="player-iframe" src="" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- ── CALENDAR TAB ── -->
+    <div id="tab-calendar" class="tab-pane">
+      <div class="cal-placeholder">
+        <h3>📅 Live Session Calendar</h3>
+        <p>Embed your Google Calendar or booking tool here to show upcoming live sessions and events.</p>
+        <a href="https://calendar.google.com" target="_blank" rel="noopener" class="btn btn-green">Open Google Calendar</a>
+        <br><br>
+        <p style="font-size:0.8rem; color:#bbb;">
+          To embed: replace this placeholder with an<br>
+          <code style="background:#f0f0f0; padding:2px 6px; border-radius:4px;">&lt;iframe src="YOUR_GOOGLE_CALENDAR_EMBED_URL"&gt;</code> tag.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── LEADERBOARD TAB ── -->
+    <div id="tab-leaderboard" class="tab-pane">
+      <div class="leader-header">
+        <h3>🏆 Global Rankings</h3>
+        <p>Points are updated when you visit the Course Page. Keep training to climb the board!</p>
+      </div>
+      <div class="leaderboard-wrap">
+        <ul id="leader-list">
+          <li class="lb-loading">Loading fighters…</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /dash-body -->
+
+  <script>
+    const pb = new PocketBase('https://pocketbase-yxsc.onrender.com');
+
+    /* ── Auth Guard ── */
+    if (!pb.authStore.isValid) {
+      window.location.href = 'login.html';
+    }
+
+    /* ── Welcome message ── */
+    const me = pb.authStore.model;
+    if (me) {
+      const displayName = me.displayName || me.name || me.email || 'Fighter';
+      document.getElementById('welcome-msg').textContent = `Welcome, ${displayName}`;
+    }
+
+    /* ── Tab switching ── */
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tabs-nav li').forEach(l => l.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      el.classList.add('active');
+      if (tabId === 'leaderboard') fetchLeaderboard();
+    }
+
+    /* ── Classroom accordion ── */
+    function toggleModule(header) {
+      const body = header.nextElementSibling;
+      header.classList.toggle('open');
+      body.classList.toggle('open');
+    }
+
+    /* ── Video player ── */
+    function playVideo(videoId, title) {
+      const wrap   = document.getElementById('video-player');
+      const iframe = document.getElementById('player-iframe');
+      const titleEl = document.getElementById('video-title');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      titleEl.textContent = title;
+      wrap.style.display = 'block';
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closePlayer() {
+      const wrap   = document.getElementById('video-player');
+      const iframe = document.getElementById('player-iframe');
+      iframe.src   = '';
+      wrap.style.display = 'none';
+    }
+
+    /* ── Logout ── */
+    function logout() {
+      pb.authStore.clear();
+      localStorage.removeItem('bones_user_id');
+      window.location.href = 'login.html';
+    }
+
+    /* ── Leaderboard ── */
+    async function fetchLeaderboard() {
+      const listEl = document.getElementById('leader-list');
+      listEl.innerHTML = '<li class="lb-loading">Loading fighters…</li>';
+
+      try {
+        const records = await pb.collection('leaderboard').getList(1, 50, {
+          sort: '-points'
+        });
+
+        if (!records.items.length) {
+          listEl.innerHTML = '<li class="lb-loading">No fighters on the board yet.</li>';
+          return;
         }
-        // Accordion Logic
-        function toggleAccordion(element) {
-            const body = element.nextElementSibling;
-            body.style.display = body.style.display === 'block' ? 'none' : 'block';
-        }
-        // Video Logic
-        function playVideo(videoId) {
-            const player = document.getElementById('video-player');
-            player.style.display = 'block';
-            player.querySelector('iframe').src = "https://www.youtube.com/embed/" + videoId;
-        }
-    </script>
+
+        listEl.innerHTML = '';
+
+        records.items.forEach((user, i) => {
+          const rank    = i + 1;
+          const isMe    = user.id === (me?.id || localStorage.getItem('bones_user_id'));
+          const initials = (user.username || user.email || '??').slice(0, 2).toUpperCase();
+
+          const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+
+          const row = document.createElement('li');
+          row.className = 'leader-row';
+          if (isMe) row.style.background = 'var(--green-light)';
+
+          row.innerHTML = `
+            <div class="leader-rank ${rankClass}">#${rank}</div>
+            <div class="leader-avatar">${initials}</div>
+            <div class="leader-name">
+              ${user.username || user.email || 'Fighter'}
+              ${isMe ? '<span class="leader-you">You</span>' : ''}
+            </div>
+            <div class="leader-points">${Number(user.points || 0).toLocaleString()} PTS</div>
+          `;
+          listEl.appendChild(row);
+        });
+
+      } catch (err) {
+        console.error('Leaderboard error:', err);
+        listEl.innerHTML = '<li class="lb-loading" style="color:#c00;">Could not load rankings. Please try again later.</li>';
+      }
+    }
+  </script>
+
 </body>
 </html>
