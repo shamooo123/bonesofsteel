@@ -1,18 +1,18 @@
 # 🛒 Bones of Steel - E-Commerce Platform
 
-> [cite_start]**Live Site:** [bones-of-steel.com](https://www.bones-of-steel.com/) [cite: 50]
+> **Live Site:** [bones-of-steel.com](https://www.bones-of-steel.com/)
 
 ---
 
 ### 📖 About This Project
 
-[cite_start]This repository contains the full-stack source code for **Bones of Steel** [cite: 50][cite_start], an online shop I built from the ground up to sell custom physical products, including 3D-printed cookie cutters[cite: 51].
+This repository contains the full-stack source code for an online shop I built from the ground up to sell custom manufactured goods and 3D prints.
 
-I wanted a way to turn my rapid prototyping and additive manufacturing skills into a tangible business. [cite_start]This project represents the intersection of my physical engineering background and web development[cite: 50], allowing me to manage the entire product lifecycle—from CAD design and 3D printing to front-end code, secure checkouts, and customer fulfillment.
+I wanted a way to turn my rapid prototyping skills into a tangible business. This project represents the intersection of my physical engineering background and web development, allowing me to manage the entire product lifecycle—from CAD design and manufacturing to front-end code, secure checkouts, and customer fulfillment.
 
 ### ✨ Key Features
 
-* [cite_start]**Custom E-Commerce Storefront:** A fully functional, responsive online shop tailored for custom manufactured goods like cookie cutters[cite: 51].
+* **Custom E-Commerce Storefront:** A fully functional, responsive online shop tailored for custom physical goods.
 * **Full-Stack Integration:** Handles dynamic product displays, shopping cart state management, and secure checkout flows.
 * **Entrepreneurial Focus:** Built not just as a coding exercise, but as a live platform to distribute my physical creations to real customers.
 
@@ -31,7 +31,7 @@ I wanted a way to turn my rapid prototyping and additive manufacturing skills in
 
 ### 💻 Local Development
 
-To run the Bones of Steel storefront locally on your machine:
+To run the storefront locally on your machine:
 
 1. **Clone the repository:**
    ```bash
@@ -57,5 +57,3 @@ npm install
 5. **Start the development server:**
 ```bash
 npm run dev
-
-```
