@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Bones of Steel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-wrap { padding: 80px 24px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 960px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .contact-info h2 { font-size: 2.2rem; margin-bottom: 14px; }
+    .contact-info p  { color: #555; }
+    .contact-block {
+      margin-top: 28px;
+    }
+    .contact-block h4 {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+    .contact-block a,
+    .contact-block span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+    .contact-block a:hover { color: var(--green); }
+
+    .contact-form-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .contact-form-card h3 { font-size: 1.3rem; margin-bottom: 24px; }
+
+    .form-success {
+      background: var(--green-light);
+      color: var(--green);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 16px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span>BONES OF</span>
+      <span>STEEL</span>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="course-content.html">Course</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="index.html" class="nav-btn">Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- ░░ PAGE HERO ░░ -->
+  <div class="page-hero">
+    <h1>Contact Us</h1>
+    <p>Have a question? Get in touch and we'll get back to you as soon as possible.</p>
+  </div>
+
+  <!-- ░░ CONTACT BODY ░░ -->
+  <div class="contact-wrap">
+    <div class="contact-grid">
+
+      <!-- Info Side -->
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Whether you have questions about membership, training, or anything else — our team is ready to help.</p>
+
+        <div class="contact-block">
+          <h4>Email</h4>
+          <a href="mailto:info@bones-of-steel.com">info@bones-of-steel.com</a>
+        </div>
+
+        <div class="contact-block">
+          <h4>Instagram</h4>
+          <a href="https://www.instagram.com/bonesofsteell" target="_blank" rel="noopener">@bonesofsteell</a>
+        </div>
+
+        <div class="contact-block">
+          <h4>Membership</h4>
+          <span>£99 / month — cancel any time</span>
+        </div>
+
+        <div class="contact-block" style="margin-top: 40px;">
+          <a href="login.html" class="btn btn-green">Join the Academy</a>
+        </div>
+      </div>
+
+      <!-- Form Side -->
+      <div class="contact-form-card">
+        <h3>Send a Message</h3>
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="c-name">Your Name</label>
+            <input type="text" id="c-name" name="name" placeholder="John Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email Address</label>
+            <input type="email" id="c-email" name="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="c-subject">Subject</label>
+            <input type="text" id="c-subject" name="subject" placeholder="Membership enquiry">
+          </div>
+          <div class="form-group">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" placeholder="Tell us how we can help…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-green" style="width:100%; text-align:center;">Send Message</button>
+          <div class="form-success" id="form-success">
+            ✓ Thank you! We'll be in touch soon.
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer>
+    <p>&copy; 2025 Bones of Steel. All Rights Reserved. &nbsp;|&nbsp;
+      <a href="contact.html">Contact</a> &nbsp;|&nbsp;
+      <a href="about.html">About</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      // Replace this with your actual form submission (e.g. Formspree, EmailJS, etc.)
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

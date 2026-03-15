@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course — Bones of Steel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.21.1/pocketbase.umd.min.js"></script>
+  <style>
+    .course-page {
+      min-height: calc(100vh - 120px);
+    }
+    .course-hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .course-hero h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); margin-bottom: 14px; }
+    .course-hero p  { color: #bbb; max-width: 600px; margin: 0 auto 32px; }
+    .curriculum {
+      padding: 80px 24px;
+    }
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .module-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 28px 24px;
+      border-top: 4px solid var(--green);
+    }
+    .module-card h3 { font-size: 1rem; margin-bottom: 8px; }
+    .module-card ul { padding-left: 14px; }
+    .module-card li { font-size: 0.82rem; color: #555; margin-bottom: 4px; }
+    .locked { opacity: 0.5; }
+    .locked .module-badge {
+      background: #f0f0f0;
+      color: #999;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .module-badge.free { background: var(--green-light); color: var(--green); }
+    .cta-band {
+      background: var(--green);
+      color: var(--white);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cta-band h2 { color: var(--white); margin-bottom: 18px; }
+  </style>
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span>BONES OF</span>
+      <span>STEEL</span>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="course-content.html">Course</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" id="nav-auth-link">Login</a></li>
+      <li><a href="index.html" class="nav-btn">Home</a></li>
+    </ul>
+  </nav>
+
+  <div class="course-page">
+    <!-- Hero -->
+    <div class="course-hero">
+      <h1>The Bones of Steel<br>Boxing Curriculum</h1>
+      <p>A structured, progressive program designed to take you from beginner to confident fighter — at your own pace.</p>
+      <a href="login.html" id="cta-btn" class="btn btn-white">Join Now — £99/month</a>
+    </div>
+
+    <!-- Curriculum -->
+    <section class="curriculum">
+      <div class="container">
+        <h2 class="text-center">What's Included</h2>
+
+        <div class="curriculum-grid">
+          <div class="module-card">
+            <div class="module-badge free">Free Preview</div>
+            <h3>🥊 Module 1: Introduction</h3>
+            <ul>
+              <li>Welcome to the Academy</li>
+              <li>Mindset of a Champion</li>
+              <li>Equipment Guide</li>
+            </ul>
+          </div>
+          <div class="module-card">
+            <h3>👣 Module 2: Stance & Footwork</h3>
+            <ul>
+              <li>Orthodox & Southpaw Stance</li>
+              <li>Forward & Backward Movement</li>
+              <li>Lateral Footwork Drills</li>
+            </ul>
+          </div>
+          <div class="module-card">
+            <h3>🤜 Module 3: Basic Punches</h3>
+            <ul>
+              <li>The Jab</li>
+              <li>The Cross</li>
+              <li>Hook & Uppercut</li>
+              <li>1-2 Combinations</li>
+            </ul>
+          </div>
+          <div class="module-card">
+            <h3>🛡 Module 4: Defence</h3>
+            <ul>
+              <li>Slipping Punches</li>
+              <li>Parrying & Blocking</li>
+              <li>Rolling Under Hooks</li>
+            </ul>
+          </div>
+          <div class="module-card">
+            <h3>💪 Module 5: Conditioning</h3>
+            <ul>
+              <li>Shadow Boxing Workouts</li>
+              <li>Bag Work Sessions</li>
+              <li>Skip Rope & Conditioning</li>
+            </ul>
+          </div>
+          <div class="module-card">
+            <h3>⚡ Module 6: Advanced Combos</h3>
+            <ul>
+              <li>3-4 Punch Combinations</li>
+              <li>Body Shot Integration</li>
+              <li>Counter-punching</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:50px;">
+          <p style="color:var(--gray-500); font-size:0.88rem;">
+            🎥 <strong>50+ hours</strong> of on-demand video content &nbsp;·&nbsp;
+            📡 Weekly live coaching sessions &nbsp;·&nbsp;
+            🏆 Community leaderboards & challenges
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <div class="container">
+        <h2>Start Training Today</h2>
+        <a href="login.html" id="cta-btn-2" class="btn btn-white">Join for £99/month</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Bones of Steel. All Rights Reserved. &nbsp;|&nbsp;
+      <a href="contact.html">Contact</a> &nbsp;|&nbsp;
+      <a href="about.html">About</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+
+    /* If already logged in, redirect to dashboard */
+    const pb = new PocketBase('https://pocketbase-yxsc.onrender.com');
+    if (pb.authStore.isValid) {
+      const authLink = document.getElementById('nav-auth-link');
+      if (authLink) { authLink.textContent = 'Dashboard'; authLink.href = 'dashboard.html'; }
+      const cta1 = document.getElementById('cta-btn');
+      const cta2 = document.getElementById('cta-btn-2');
+      if (cta1) { cta1.textContent = 'Go to Dashboard'; cta1.href = 'dashboard.html'; }
+      if (cta2) { cta2.textContent = 'Go to Dashboard'; cta2.href = 'dashboard.html'; }
+    }
+  </script>
+
+</body>
+</html>

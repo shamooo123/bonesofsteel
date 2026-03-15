@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Join the Boxing Movement Today — Bones of Steel</title>
+  <meta name="description" content="Bones of Steel is more than just a brand — it's a movement dedicated to transforming lives through the art and discipline of boxing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-lead { font-size: 1.05rem; color: #333; max-width: 780px; }
+    .mission-bar {
+      background: var(--black);
+      color: var(--white);
+      padding: 60px 24px;
+      text-align: center;
+      margin: 60px 0;
+    }
+    .mission-bar h2 { color: var(--white); font-size: 2rem; margin-bottom: 14px; }
+    .mission-bar p  { color: #bbb; max-width: 640px; margin: 0 auto; font-size: 0.95rem; }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 50px 0;
+    }
+    .pillar {
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 28px;
+      border-top: 4px solid var(--green);
+    }
+    .pillar h4 { font-size: 1rem; margin-bottom: 8px; }
+    .pillar p  { font-size: 0.85rem; color: var(--gray-500); margin: 0; }
+    .cta-bar {
+      background: var(--green);
+      color: var(--white);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cta-bar h2 { color: var(--white); font-size: 2rem; margin-bottom: 18px; }
+    @media (max-width: 768px) { .pillars { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span>BONES OF</span>
+      <span>STEEL</span>
+    </a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="course-content.html">Course</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="index.html" class="nav-btn">Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- ░░ PAGE HERO ░░ -->
+  <div class="page-hero">
+    <h1>Who We Are</h1>
+    <p>A movement dedicated to transforming lives through the art and discipline of boxing.</p>
+  </div>
+
+  <!-- ░░ ABOUT BODY ░░ -->
+  <section class="about-section">
+    <div class="container">
+
+      <p class="about-lead">
+        <strong>Bones of Steel</strong> is more than just a brand — it's a movement dedicated to transforming lives through the art and discipline of boxing. Founded by a team of passionate athletes and trainers, our mission is to make the sport of boxing accessible and inclusive for everyone. Whether you're stepping into the ring for the first time or striving to master advanced techniques, we're here to guide and inspire you every step of the way.
+      </p>
+
+      <p class="about-lead">
+        We pride ourselves on providing an unmatched learning experience that combines professional expertise, cutting-edge technology, and a supportive community. Our courses are taught by seasoned professionals who have honed their craft in competitive boxing arenas. But we don't stop at just teaching techniques — we aim to instil the confidence, discipline, and resilience that boxing offers.
+      </p>
+
+      <p class="about-lead">
+        At <strong>Bones of Steel</strong>, we believe in the power of community. Our platform brings people together, fostering connections through shared goals and achievements. With features like live progress updates and interactive challenges, we celebrate every milestone and keep you motivated on your journey.
+      </p>
+
+      <div class="about-duo">
+        <img src="https://images.squarespace-cdn.com/content/v1/678fd85c67028031d4eaa0ad/750368f3-066c-4276-be66-1ca663164fdd/IMG_1302.jpg"
+             alt="Boxing training">
+        <img src="https://images.squarespace-cdn.com/content/v1/678fd85c67028031d4eaa0ad/21c095ac-a019-40f7-bf43-2ae72678a109/IMG_1512.jpg"
+             alt="Boxing training session">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ░░ MISSION BAR ░░ -->
+  <div class="mission-bar">
+    <div class="container">
+      <h2>We Are Bones of Steel</h2>
+      <p>We're here to help you unlock your full potential. This isn't just about learning to box — it's about building strength, character, and a lifelong passion for the sport.</p>
+    </div>
+  </div>
+
+  <!-- ░░ PILLARS ░░ -->
+  <section style="padding: 0 24px 80px;">
+    <div class="container">
+      <div class="pillars">
+        <div class="pillar">
+          <h4>🥊 Expert Coaching</h4>
+          <p>Train with seasoned pros who've competed at the highest levels. Every technique, every combination, broken down step by step.</p>
+        </div>
+        <div class="pillar">
+          <h4>📱 On-Demand Access</h4>
+          <p>50+ hours of content available 24/7. Train on your schedule, at your own pace, from anywhere in the world.</p>
+        </div>
+        <div class="pillar">
+          <h4>🤝 Real Community</h4>
+          <p>Join a tribe of fighters who push each other. Live sessions, leaderboards, chat — accountability built in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CTA ░░ -->
+  <div class="cta-bar">
+    <div class="container">
+      <h2>Ready to Get Started?</h2>
+      <a href="login.html" class="btn btn-white">View Services</a>
+    </div>
+  </div>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer>
+    <p>&copy; 2025 Bones of Steel. All Rights Reserved. &nbsp;|&nbsp;
+      <a href="contact.html">Contact</a> &nbsp;|&nbsp;
+      <a href="about.html">About</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
